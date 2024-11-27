@@ -13,9 +13,23 @@ https://docs.docker.com/desktop/setup/install/windows-install/
 docker compose up -d
 ```
 
+Se der erro, tente o comando abaixo antes, depois repita o segundo passo:
+```
+docker compose up --build -d
+```
+Se correr tudo bem, você terá subido um conjunto de contêineres com airflow e alguns bancos de dados.  
+
 3º - Acesse esse link:
 
+http://localhost:8080/
+
+O usuário é **airflow** e a senha é **airflow**.
+
 4º - Rode a DAG no airflow
+
+5º - Se a DAG rodar sem erros, ela terá inserido os dados no banco de dados postgres que está no contêiner. Para acessar ele:
+
+
 
 ### Desafio 1
 
@@ -142,9 +156,15 @@ Descreva a abordagem escolhida em detalhes. Justifique a escolha.
 
 ![MER](https://i.imgur.com/nsasrR2.png)
 
-Acima está o modelo entidade relacionamento que representa a minha compreensão do JSON. Vamos por etapas:
+Acima está o modelo entidade relacionamento que representa a minha compreensão do JSON, no caso cada um das entidades tem muitas colunas, então no desenho coloquei somente as que auxiliam na identificação. Passando as tabelas:
 - **EN_RESTAURANTE**: essa tabela guarda a identificação do restaurante, no JSON só temos a identificação da localidade, então usei ela como chave primária. Essa tabela vai ser interessante para as equipes de gestão conseguirem agrupar mais os dados a partir dos restaurantes.
 - **EN_PEDIDO**: essa tabela vai guardar os pedidos, no caso ela vai ter uma relação de um com muitos com a **en_restaurante**, visto que um restaurante pode ter vários pedidos, mas um pedido só pode vir de um restaurante.
+- **EN_IMPOSTO**: essa tabela guarda os detalhes dos impostos. Nesse caso eu acredito ser válido guardar os impostos em uma tabela separada por conta que existe um identificador deles, e como cada imposto tem uma taxa vinculada a ele, evitaria a repetição dos dados.
+- **EN_DETAIL_LINES**: essa tabela é referente aos detalhes da linha do pagamento do pedido e traz informações como valor total do pedido, desconto no pedido, quantidade de item, localização da mesa, etc.
+- **EN_MENU_ITEM**: essa tabela guarda informações sobre os itens disponíveis no restaurante. Achei interessante manter esses dados em uma tabela separada porque assim o facilita controle da gestão sobre os itens que estão disponíveis no restaurante.
+- **RE_IMP_PEDIDO**: essa tabela é uma tabela de relacionamento para impostos e pedidos. Como um pedido pode ter vários impostos e um imposto pode estar em vários pedidos, ela faz-se necessária. Nesse sentido, essa tabela guarda o tipo de imposto e os valores que ele impacta.
+- **RE_ITEM_LINES**: essa tabela é uma tabela de relacionamento para itens e linhas de pagamento, ela é necessária porque como não existe um identificador exclusivo para cada item de cada tipo (ex: cada camarão servido não possui um identificador exclusivo, mas sim um código que remete ao item camarão) um item pode estar em várias linhas de pagamento assim como as linhas de pagamento podem possuir vários itens.
+
 
 ### Desafio 2
 
