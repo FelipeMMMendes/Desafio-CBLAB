@@ -168,14 +168,15 @@ Acima está o modelo entidade relacionamento que representa a minha compreensão
 
 ### Desafio 2
 
-1. Porque armazenar as respostas das APIs?
+1. **Porque armazenar as respostas das APIs?**
 
 Eu armazenaria as respostas das APIs por dois motivos principais: **incluir os dados no meu ambiente e para dar mais velocidade de processamento.** Com os dados em meu ambiente, eu elimino algumas das variáveis externas ao meu projeto que possam impactar no meu fluxo de dados. Por exemplo, se eu não guardar esses retornos das APIs, vou ficar dependendo da infraestrutura delas, e se por algum acaso essas APIs forem derrubadas? Ficarei com o meu serviço indisponível por fatores externos ao meu controle. Também ao fazer essa inclusão das respostas no meu ambiente eu estou construindo um Data Lake. Agora indo para a questão da velocidade, é mais rápido eu acessar os arquivos localmente, do meu ambiente, do que fazer uma requisição e aguardar o retorno da API. Nesse sentido, armazenar as respostas das APIs é uma boa prática.
 
-2. Como você armazenaria os dados? Crie uma estrutura de pastas capaz de armazenar as respostas da API. Ela deve permitir manipulaçõe, verificações, buscas e pesquisas rápidas.
+2. **Como você armazenaria os dados? Crie uma estrutura de pastas capaz de armazenar as respostas da API. Ela deve permitir manipulaçõe, verificações, buscas e pesquisas rápidas.**
 
+Em um cenário de produção eu arquitetaria um Data Lake e armazenaria nele. Como os dados vão ser só extraídos e não transformados não há necessidade de um data warehouse nesse trecho, se fossemos além ai sim seria interessante inserir um data warehouse na jogada. Nesse sentido, implementei uma classe files_utils, que auxilia na manipulação de dados em um diretório.
 
-3. Considere que a resposta do endpoint getGuestChecks foi alterada, por exemplo, guestChecks.taxes foi renomeado para guestChecks.taxation. O que isso implicaria?
+3. **Considere que a resposta do endpoint getGuestChecks foi alterada, por exemplo, guestChecks.taxes foi renomeado para guestChecks.taxation. O que isso implicaria?**
 
 Isso implicaria em um problema no meu fluxo de dados, pois eu vou estar informando no código que o arquivo que estamos esperando da API é o **guestChecks.taxes**, se ele receber um arquivo com outro nome, o código falha. Mas pra corrigir isso não seria muito difícil, um bom engenheiro de dados faria um código em que o nome do arquivo seria passado em um .env ou em alguma único lugar do código todo, nesse sentido bastaria alterar o arquivo nesse único lugar que isso iria refletir no fluxo de dados inteiro. 
 
