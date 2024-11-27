@@ -19,7 +19,7 @@ docker compose up -d
 
 ### Desafio 1
 
-Descreva o esquema JSON representado abaixo:
+**Descreva o esquema JSON representado abaixo:** 
 
 ```
 {
@@ -133,6 +133,19 @@ Dentro da chave **"DetailLines"** temos outra chave que contém uma lista de obj
 - **"activeTaxes"**: guarda o número de impostos ativos no item;
 - **"prcLvl"**: guarda o nível de preço do item;
 
+**Transcreva o JSON para tabelas SQL. A implementação deve fazer sentido para
+operações de restaurante.**
+
+O arquivo SQL está na pasta DDL.
+
+Descreva a abordagem escolhida em detalhes. Justifique a escolha.
+
+![MER](https://i.imgur.com/nsasrR2.png)
+
+Acima está o modelo entidade relacionamento que representa a minha compreensão do JSON. Vamos por etapas:
+- **EN_RESTAURANTE**: essa tabela guarda a identificação do restaurante, no JSON só temos a identificação da localidade, então usei ela como chave primária. Essa tabela vai ser interessante para as equipes de gestão conseguirem agrupar mais os dados a partir dos restaurantes.
+- **EN_PEDIDO**: essa tabela vai guardar os pedidos, no caso ela vai ter uma relação de um com muitos com a **en_restaurante**, visto que um restaurante pode ter vários pedidos, mas um pedido só pode vir de um restaurante.
+
 ### Desafio 2
 
 1. Porque armazenar as respostas das APIs?
@@ -144,5 +157,5 @@ Eu armazenaria as respostas das APIs por dois motivos principais: **incluir os d
 
 3. Considere que a resposta do endpoint getGuestChecks foi alterada, por exemplo, guestChecks.taxes foi renomeado para guestChecks.taxation. O que isso implicaria?
 
-Isso implicaria em um problema no meu fluxo de dados, pois eu vou estar informando no código que o arquivo que estamos esperando da API é o **guestChecks.taxes**, se ele receber um arquivo com outro nome, o código falha. Mas pra corrigir isso não seria muito difícil, um bom engenheiro de dados faria um código em que o nome do arquivo seria passado em um .env ou em alguma único lugar do código todo, nesse sentido não seria difícil de alterar. 
+Isso implicaria em um problema no meu fluxo de dados, pois eu vou estar informando no código que o arquivo que estamos esperando da API é o **guestChecks.taxes**, se ele receber um arquivo com outro nome, o código falha. Mas pra corrigir isso não seria muito difícil, um bom engenheiro de dados faria um código em que o nome do arquivo seria passado em um .env ou em alguma único lugar do código todo, nesse sentido bastaria alterar o arquivo nesse único lugar que isso iria refletir no fluxo de dados inteiro. 
 
