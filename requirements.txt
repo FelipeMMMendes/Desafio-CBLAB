@@ -13,4 +13,3 @@ defusedxml==0.7.1
 xmltodict==0.13.0
 orjson==3.9.2
 zeep
-logging
