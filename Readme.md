@@ -246,7 +246,7 @@ CREATE TABLE re_item_lines (
 );
 ```
 Podem ter feito melhorias no quesito da tipagem das variáveis, algumas delas podem acabar consumindo mais recursos do que o necessário. Uma possibilidade que eu consideraria seria a de usar um banco NoSQL aqui, visto que a estrutura desse JSON é compatível com um banco NoSQL com arquitetura voltada a documentos (como MongoDB), além de que foi dito no contexto do desafio:
-"No exemplo fornecido, o objeto detailLines contém um menuItem. Ele também pode
+"No exemplo fornecido, o objeto detailLines contém um menuItem. Ele também **pode**
 conter instâncias de: ... ", nisso da a entender que a estrutura é flexível, já que esse objeto citado pode ou não conter instâncias de outras coisas, e por conta dessa estrutura que pode variar um pouco, um banco de dados NoSQL casaria com o problema.
 
 Descreva a abordagem escolhida em detalhes. Justifique a escolha.
@@ -261,7 +261,6 @@ Acima está o modelo entidade relacionamento que representa a minha compreensão
 - **EN_MENU_ITEM**: essa tabela guarda informações sobre os itens disponíveis no restaurante. Achei interessante manter esses dados em uma tabela separada porque assim o facilita controle da gestão sobre os itens que estão disponíveis no restaurante.
 - **RE_IMP_PEDIDO**: essa tabela é uma tabela de relacionamento para impostos e pedidos. Como um pedido pode ter vários impostos e um imposto pode estar em vários pedidos, ela faz-se necessária. Nesse sentido, essa tabela guarda o tipo de imposto e os valores que ele impacta.
 - **RE_ITEM_LINES**: essa tabela é uma tabela de relacionamento para itens e linhas de pagamento, ela é necessária porque como não existe um identificador exclusivo para cada item de cada tipo (ex: cada camarão servido não possui um identificador exclusivo, mas sim um código que remete ao item camarão) um item pode estar em várias linhas de pagamento assim como as linhas de pagamento podem possuir vários itens.
-
 
 ### Desafio 2
 
